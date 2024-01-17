@@ -1,6 +1,3 @@
-const jwt = require('jsonwebtoken');
-const env = require('dotenv');
-
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
@@ -8,12 +5,12 @@ dotenv.config();
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
-const fetchUser = (req, res, next) => {
+const validateToken = (req, res, next) => {
 
     // Get the user from the jwt token and add to request object
     const token = req.header('auth-token');
     if (!token) {
-        res.status(401).send({error: "Please authenticate using a valid token"});
+        res.status(401).send({error: "Unauthorized"});
     }
     
     try {
@@ -23,9 +20,9 @@ const fetchUser = (req, res, next) => {
         next();
 
     } catch (error) {
-        res.status(401).send({error: "Please authenticate using a valid token"});
+        res.status(401).send({error: "Unauthorized"});
     }
 
 }
 
-module.exports = fetchUser
+export default validateToken;

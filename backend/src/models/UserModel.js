@@ -11,13 +11,14 @@ const userSchema = new mongoose.Schema({
         avatar: { data: Buffer, contentType: String },
         contact: {
             phone: { type: String },
-            social_media: {
-                twitter: { type: String },
-                linkedin: { type: String },
-            },
+        },
+        social_media: {
+            twitter: { type: String },
+            linkedin: { type: String },
         },
     },
-});
+    isNew: {type: Boolean, default: true},
+}, { timestamps: true });
 
 const User = mongoose.model("User", userSchema);
 

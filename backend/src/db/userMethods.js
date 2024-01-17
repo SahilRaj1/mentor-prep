@@ -1,8 +1,10 @@
 import User from "../models/UserModel.js";
 
 // Fetch list of users
-export const fetchAllUsers = async (query = {}) => {
-    const users = await User.find(query);
+export const fetchAllUsers = async (skip, limit, query = {}) => {
+    const users = await User.find(query)
+        .skip(skip)
+        .limit(limit);
     return users;
 }
 
@@ -31,8 +33,8 @@ export const createUser = async (_user) => {
 }
 
 // Update a user
-export const updateUser = async (options) => {
-    const user = await User.findOneAndUpdate(options);
+export const updateUser = async (filter, options) => {
+    const user = await User.findOneAndUpdate(filter, options);
     return user;
 }
 

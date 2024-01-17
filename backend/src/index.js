@@ -6,6 +6,7 @@ import swaggerFile from './swagger_output.json' assert { type: "json" };
 import connectToMongo from './db.js';
 
 import authRouter from './routes/authRouter.js';
+import userRouter from './routes/userRouter.js';
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/users', userRouter);
 app.use('/api/v1/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.listen(PORT, () => {
