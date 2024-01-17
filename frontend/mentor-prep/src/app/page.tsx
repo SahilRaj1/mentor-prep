@@ -1,9 +1,10 @@
+import Navbar from "@/components/Header";
 
 
 export default function Home() {
   return (
-    <main>
-      Hello
-    </main>
+    <div className="bg-gray-400">
+      <Navbar />
+    </div>
   )
 }
