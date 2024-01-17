@@ -7,7 +7,7 @@ import Image from 'next/image';
 
 export function HeroBullets() {
   return (
-    <Container size="md">
+    <Container size="md" id='hero'>
       <div className={classes.inner}>
         <div className={classes.content}>
           <Title className={classes.title}>

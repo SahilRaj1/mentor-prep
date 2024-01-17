@@ -20,24 +20,24 @@ import { UserButton } from '../UserButton/UserButton';
     const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
 
     return (
-      <Box className='pt-5'>
+      <Box className='py-5 border border-b-[#EAEAEA]'>
         <header className={classes.header}>
           <Group justify="space-between" h="100%">
             <MantineLogo size={30} />
             <Group h="100%" gap={0} visibleFrom="sm">
-              <a href="#" className={classNames("hover:text-violet-700 text-xl",classes.link)}>
+              <a href="/#hero" className={classNames("hover:text-violet-700 text-xl",classes.link)}>
                 Find a Mentor
               </a>
-              <a href="#" className={classNames("hover:text-violet-700 text-xl",classes.link)}>
+              <a href="/#" className={classNames("hover:text-violet-700 text-xl",classes.link)}>
                 Become a Mentor
               </a>
-              <a href="#" className={classNames("hover:text-violet-700 text-xl",classes.link)}>
+              <a href="/#" className={classNames("hover:text-violet-700 text-xl",classes.link)}>
                 MarketPlace
               </a>
-              <a href="#" className={classNames("hover:text-violet-700 text-xl",classes.link)}>
+              <a href="/community" className={classNames("hover:text-violet-700 text-xl",classes.link)}>
                 Community
               </a>
-              <a href="#" className={classNames("hover:text-violet-700 text-xl",classes.link)}>
+              <a href="/#footer" className={classNames("hover:text-violet-700 text-xl",classes.link)}>
                 About Us
               </a>
             </Group>
