@@ -1,8 +1,8 @@
 import { HeaderMegaMenu } from "../components/HeaderMegaMenu/HeaderMegaMenu";
+import { HeroBullets } from "../components/HeroBullets/HeroBullets";
 
 export default function HomePage() {
   return <>
-  <HeaderMegaMenu />
-  <div>Home page</div>
+  <HeroBullets/>
   </>;
 }

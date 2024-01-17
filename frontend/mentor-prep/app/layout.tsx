@@ -2,11 +2,12 @@ import "@mantine/core/styles.css";
 import React from "react";
 import { MantineProvider, ColorSchemeScript } from "@mantine/core";
 import { theme } from "../theme";
-import "./globals.css";
+import './index.css'
+import { HeaderMegaMenu } from "../components/HeaderMegaMenu/HeaderMegaMenu";
 
 export const metadata = {
-  title: "Mantine Next.js template",
-  description: "I am using Mantine with Next.js!",
+  title: "Mentor Prep",
+  description: "Find all your Career and Personal Development Solutions here",
 };
 
 export default function RootLayout({ children }: { children: any }) {
@@ -21,7 +22,8 @@ export default function RootLayout({ children }: { children: any }) {
         />
       </head>
       <body>
-        <MantineProvider theme={theme}>{children}</MantineProvider>
+        <MantineProvider theme={theme}>
+          <HeaderMegaMenu />{children}</MantineProvider>
       </body>
     </html>
   );
