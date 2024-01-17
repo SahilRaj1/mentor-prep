@@ -1,6 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import swaggerUi from 'swagger-ui-express';
+import swaggerFile from './swagger_output.json' assert { type: "json" };
 import connectToMongo from './db.js';
 
 import authRouter from './routes/authRouter.js';
@@ -25,6 +27,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
