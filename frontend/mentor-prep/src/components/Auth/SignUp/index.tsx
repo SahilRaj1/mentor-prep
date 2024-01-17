@@ -7,26 +7,49 @@ const SignupPage: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const [role, setRole] = useState(''); // Initial state, dropdown is not selected
+  const [role, setRole] = useState('');
 
-  const handleSignup = (e: React.FormEvent) => {
+  const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Here you can perform signup logic
-    // For simplicity, we'll just log the form data for now
     console.log('Name:', name);
     console.log('Username:', username);
     console.log('Password:', password);
     console.log('Email:', email);
     console.log('Role:', role);
 
-    // Reset the form after signing up
-    setName('');
-    setUsername('');
-    setPassword('');
-    setEmail('');
-    setRole('');
-  };
+    try {
+        const response = await fetch('https://mentor-prep-rest-api.onrender.com/api/v1/auth/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: name,
+            username: username,
+            password: password,
+            email: email,
+            role: role,
+          }),
+        });
+  
+        if (response.ok) {
+          const data = await response.json();
+          console.log('API Response:', data);
+  
+          // Reset the form after successful signup
+          setName('');
+          setUsername('');
+          setPassword('');
+          setEmail('');
+          setRole('');
+        } else {
+          console.error('Sign Up failed:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error during Sign Up:', error);
+      }
+    };
 
   return (
     <div className="flex items-center justify-center min-h-screen">
