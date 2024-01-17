@@ -19,6 +19,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Available Routes
+
+app.get('/', (req, res) => {
+    res.send("<h1>Mentor Prep REST API</h1>")
+});
+
 app.use('/api/v1/auth', authRouter);
 
 app.listen(PORT, () => {
