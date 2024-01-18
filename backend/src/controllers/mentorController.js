@@ -1,4 +1,4 @@
-import { fetchAllMentors, updateMentorInDB } from "../db/mentorMethods.js";
+import { fetchAllMentors, updateMentorInDB, fetchOneMentor } from "../db/mentorMethods.js";
 
 
 // ROUTE 1: Get all mentors: GET 'api/mentors".
@@ -72,3 +72,30 @@ export const updateMentor = async (req, res) => {
         res.status(500).send("Internal server error");
     }
 };
+
+export const getOneMentor = async (req, res) =>  {
+    
+    let success = false;
+
+    try {
+       
+        const mentor = await fetchOneMentor(req.params.id);
+
+        if (!mentor) {
+            res.status(404).json({success, error: "mentor not found"});
+            return;
+        }
+
+        success = true;
+        res.status(200).json({
+            success,
+            data: {
+                mentor,
+            },
+        });
+
+    } catch (error) {
+       console.log(error.message);
+       res.status(500).send("Internal server error");
+    }
+}

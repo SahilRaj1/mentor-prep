@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const mentorSchema = new mongoose.Schema({
-    user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, unique: true },
     expertise: { type: [String] },
     description: { type: String },
     rating: { type: Number, default: 0 },

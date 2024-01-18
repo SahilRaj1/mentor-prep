@@ -13,6 +13,11 @@ export const createNewMentee = async (id) => {
     return mentee;
 }
 
+export const fetchOneMentee = async (id) => {
+    const mentee = await Mentee.findOne({ user_id: id }).populate('user_id');
+    return mentee ? mentee : null;
+}
+
 export const updateOneMentee = async (userId, updateData) => {
     const filter = { _id: userId, role: "mentee" };
     const options = { $set: updateData };
