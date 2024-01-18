@@ -1,4 +1,4 @@
-import { fetchAllPosts, createOnePost, deleteOnePost, updateOnePost } from "../db/postMethods.js";
+import { fetchAllPosts, createOnePost, deleteOnePost, updateOnePost, fetchOnePost, fetchUserPosts } from "../db/postMethods.js";
 
 export const getAllPosts = async (req, res) => {
 
@@ -53,8 +53,8 @@ export const createPost = async (req, res) => {
             newPost.tags = tags;
         }
 
-        post.author = req.user.id;
-        post.isMentor = req.user.role === "mentor";
+        newPost.author = req.user.id;
+        newPost.isMentor = req.user.role === "mentor";
 
         const post = await createOnePost(newPost);
         success = true;
