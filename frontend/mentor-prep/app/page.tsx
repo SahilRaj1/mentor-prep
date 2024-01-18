@@ -1,8 +1,10 @@
-import { HeaderMegaMenu } from "../components/HeaderMegaMenu/HeaderMegaMenu";
 import { HeroBullets } from "../components/HeroBullets/HeroBullets";
+import MentorPage from "../components/MentorPage";
 
 export default function HomePage() {
+
   return <>
-  <HeroBullets/>
+    <HeroBullets/>
+    {/* <MentorPage /> */}
   </>;
 }
