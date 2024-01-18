@@ -1,10 +1,12 @@
-import Booking from "../models/BookingModel";
+import Booking from "../models/BookingModel.js";
 
 // fetch list of bookings
 export const fetchAllBookings = async (skip, limit, query = {}) => {
     const bookings = await Booking.find(query)
         .skip(skip)
-        .limit(limit);
+        .limit(limit)
+        .populate('mentor_id')
+        .populate('mentee_id');
     return bookings;
 }
 
@@ -38,14 +40,14 @@ export const fetchUpcomingMenteeBookings = async (mentee_id, skip, limit) => {
     return bookings;
 }
 
+// fetch one booking
+export const fetchOneBooking = async (id) => {
+    const booking = await Booking.findById(id).populate('mentor_id').populate('mentee_id');;
+    return booking ? booking : null;
+} 
+
 // create booking
-export const createBooking = async (mentor_id, mentee_id, dateOfSession) => {
-    const newBooking = {
-        mentor_id: mentor_id,
-        mentee_id: mentee_id,
-        dateOfSession: dateOfSession,
-    };
-    const booking = new Booking(newBooking);
-    savedBooking = await booking.save();
-    return savedBooking;
+export const createBooking = async (_booking) => {
+    const booking = await Booking.create(_booking);
+    return booking;
 }

@@ -5,7 +5,7 @@ const postSchema = new mongoose.Schema({
     content: { type: String, required: true },
     author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     isMentor: { type: Boolean, required: true },
-    tag: { type: String },
+    tags: { type: [String] },
     upvotes: { type: Number, default: 0 },
     downvotes: { type: Number, default: 0 },
 }, { timestamps: true });

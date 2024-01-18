@@ -39,8 +39,8 @@ export const updateUser = async (filter, options) => {
 }
 
 // Delete a user
-export const deleteUser = async (options) => {
-    const user = await User.findOneAndDelete(options);
+export const deleteUser = async (filter) => {
+    const user = await User.findOneAndDelete(filter);
     return user;
 }
 

@@ -1,6 +1,6 @@
-import { getAllBookings, getAllMenteeBookings, getAllMentorBookings } from "../controllers/bookingController";
+import { getAllBookings, getAllMenteeBookings, getAllMentorBookings } from "../controllers/bookingController.js";
 import { Router } from "express";
-import validateToken from "../middlewares/validateToken";
+import validateToken from "../middlewares/validateToken.js";
 
 const router = Router();
 

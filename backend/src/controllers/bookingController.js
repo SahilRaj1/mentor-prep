@@ -1,5 +1,4 @@
-import { fetchAllBookings, fetchMenteeBookings, fetchMentorBookings, fetchUpcomingMenteeBookings, fetchUpcomingMentorBookings } from "../db/bookingMethods";
-import { fetchUserById } from "../db/userMethods";
+import { fetchAllBookings, fetchMenteeBookings, fetchMentorBookings, fetchOneBooking, fetchUpcomingMenteeBookings, fetchUpcomingMentorBookings } from "../db/bookingMethods.js";
 
 // ROUTE 1: get all bookings: GET 'api/bookings". [admin]
 export const getAllBookings = async (req, res) => {
@@ -63,10 +62,6 @@ export const getAllMentorBookings = async (req, res) => {
             bookings = await fetchUpcomingMentorBookings(req.params.id, skip, limit);
         }
 
-        bookings.forEach(booking => {
-            booking.mentee = fetchUserById(booking.mentee_id);
-        });
-
         success = true;
 
         res.status(200).json({
@@ -108,9 +103,52 @@ export const getAllMenteeBookings = async (req, res) => {
             bookings = await fetchUpcomingMenteeBookings(req.params.id, skip, limit);
         }
 
-        bookings.forEach(booking => {
-            booking.mentor = fetchUserById(booking.mentor_id);
-        });
+        success = true;
+
+        res.status(200).json({
+            success,
+            results: bookings.length,
+            data: {
+                bookings,
+            },
+        })
+
+    } catch (error) {
+       console.log(error.message);
+       res.status(500).send("Internal server error");
+    }
+}
+
+// ROUTE 4: get all bookings of mentee: GET 'api/bookings/:id". [login required]
+export const getOneBooking = async (req, res) => {
+
+    let success = false;
+
+    try {
+
+        let booking = await fetchOneBooking(req.params.id);
+
+        if (!booking) {
+            return 
+        }
+       
+        if (req.user._id != req.params.id) {
+            res.status(401).json({success, error: "Unauthorized"});
+            return;
+        }
+
+        const page = parseInt(req.query.page, 10) || 1;
+        const limit = parseInt(req.query.limit, 10) || 10;
+        const skip = (page - 1) * limit;
+        delete req.query.page;
+        delete req.query.limit;
+
+        let bookings = [];
+        if (req.query.upcoming) {
+            bookings = await fetchMenteeBookings(req.params.id, skip, limit);
+        } else {
+            bookings = await fetchUpcomingMenteeBookings(req.params.id, skip, limit);
+        }
 
         success = true;
 

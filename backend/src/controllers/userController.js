@@ -40,8 +40,6 @@ export const updateUserController = async (req, res) => {
 
     try {
 
-        console.log(req.user.id);
-        console.log(req.params.id);
         if (req.user.id != req.params.id) {
             res.status(405).json({success, error: "Cannot update account"});
             return;
