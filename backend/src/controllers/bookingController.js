@@ -1,5 +1,5 @@
-import { fetchAllBookings, fetchMenteeBookings, fetchMentorBookings, fetchUpcomingMenteeBookings, fetchUpcomingMentorBookings } from "../db/bookingMethods";
-import { fetchUserById } from "../db/userMethods";
+import { fetchAllBookings, fetchMenteeBookings, fetchMentorBookings, fetchUpcomingMenteeBookings, fetchUpcomingMentorBookings } from "../db/bookingMethods.js";
+import { fetchUserById } from "../db/userMethods.js";
 
 // ROUTE 1: get all bookings: GET 'api/bookings". [admin]
 export const getAllBookings = async (req, res) => {

@@ -1,4 +1,4 @@
-import Booking from "../models/BookingModel";
+import Booking from "../models/BookingModel.js";
 
 // fetch list of bookings
 export const fetchAllBookings = async (skip, limit, query = {}) => {
@@ -49,3 +49,4 @@ export const createBooking = async (mentor_id, mentee_id, dateOfSession) => {
     savedBooking = await booking.save();
     return savedBooking;
 }
+
