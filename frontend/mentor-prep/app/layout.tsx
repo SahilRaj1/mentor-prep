@@ -4,6 +4,7 @@ import { MantineProvider, ColorSchemeScript } from "@mantine/core";
 import { theme } from "../theme";
 import './index.css'
 import { HeaderMegaMenu } from "../components/HeaderMegaMenu/HeaderMegaMenu";
+import '@mantine/carousel/styles.css';
 
 export const metadata = {
   title: "Mentor Prep",

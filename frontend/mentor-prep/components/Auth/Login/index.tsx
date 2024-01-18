@@ -30,6 +30,7 @@ const LoginPage: React.FC = () => {
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem('authtoken', data.authtoken);
+        localStorage.setItem('userId', data.user._id);
         router.push("/")
         setEmail('');
         setPassword('');

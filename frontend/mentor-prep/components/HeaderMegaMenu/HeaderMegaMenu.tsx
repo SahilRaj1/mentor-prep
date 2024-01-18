@@ -25,19 +25,19 @@ import { UserButton } from '../UserButton/UserButton';
           <Group justify="space-between" h="100%">
             <MantineLogo size={30} />
             <Group h="100%" gap={0} visibleFrom="sm">
-              <a href="/#hero" className={classNames("hover:text-violet-700 text-xl",classes.link)}>
+              <a href="/#mentors" className={classNames("hover:text-blue-500 text-xl",classes.link)}>
                 Find a Mentor
               </a>
-              <a href="/#" className={classNames("hover:text-violet-700 text-xl",classes.link)}>
+              <a href="/#" className={classNames("hover:text-blue-500 text-xl",classes.link)}>
                 Become a Mentor
               </a>
-              <a href="/#" className={classNames("hover:text-violet-700 text-xl",classes.link)}>
+              <a href="/#" className={classNames("hover:text-blue-500 text-xl",classes.link)}>
                 MarketPlace
               </a>
-              <a href="/community" className={classNames("hover:text-violet-700 text-xl",classes.link)}>
+              <a href="/community" className={classNames("hover:text-blue-500 text-xl",classes.link)}>
                 Community
               </a>
-              <a href="/#footer" className={classNames("hover:text-violet-700 text-xl",classes.link)}>
+              <a href="/#footer" className={classNames("hover:text-blue-500 text-xl",classes.link)}>
                 About Us
               </a>
             </Group>

@@ -1,63 +1,88 @@
 "use client";
-import { useState } from 'react';
-import { Group, Code } from '@mantine/core';
+import {  useState } from 'react';
 import {
-  IconBellRinging,
-  IconFingerprint,
-  IconKey,
-  IconSettings,
-  Icon2fa,
-  IconDatabaseImport,
-  IconReceipt2,
-  IconSwitchHorizontal,
   IconLogout,
   IconHelpOctagon,
   IconTag,
-  IconArrowBadgeUp,
+  IconPencil,
+  IconListCheck,
 } from '@tabler/icons-react';
 import classes from './NavbarSimple.module.css';
 import classNames from 'classnames';
+import { usePathname, useRouter } from 'next/navigation';
+
+// ... (imports)
 
 const data = [
-  { link: '', label: 'Questions', icon: IconHelpOctagon },
-  { link: '', label: 'Tags', icon: IconTag },
-  { link: '', label: 'Rankings', icon: IconArrowBadgeUp },
+  { link: '/community', label: 'Discussion', slug:'discussion' , icon: IconHelpOctagon },
+  { link: '/community/tags', label: 'Tags', slug:'tags' ,  icon: IconTag },
+  { link: '/community/myquestion', label: 'My Question', slug:'myquestion' , icon: IconPencil },
+  { link: '/community/solution', label: 'Solution', slug:'solution' , icon: IconListCheck },
 ];
 
-export function NavbarSimple() {
-  const [active, setActive] = useState('Billing');
+export default function ChooseQuestionType({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const [active, setActive] = useState(() => {
+    const initialActive = data.find(({ slug }) => pathname.toLowerCase().includes(slug))?.slug || 'discussion';
+    return initialActive;
+  });
+  const userIsLoggedIn = Boolean(localStorage.getItem("authtoken"));
+  // console.log("Active", active)
+
+  const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>, item: any) => {
+    event.preventDefault();
+    if (item.label === 'My Question' && !userIsLoggedIn) {
+      // Do nothing or show a message indicating the user needs to be logged in
+    } else {
+      setActive(item.label);
+      // Navigate to the specified link using Next.js router
+      router.push(item.link);
+    }
+  };
 
   const links = data.map((item) => (
-    <a
-      className={classNames("hover:text-violet-700",`${classes.link}${item.label === active ? ' active' : ''}`)}
-      href={item.link}
-      key={item.label}
-      onClick={(event) => {
-        event.preventDefault();
-        setActive(item.label);
-      }}
-    >
-      <item.icon className={classes.linkIcon} stroke={1.5} />
-      <span>{item.label}</span>
-    </a>
+    item.label === 'My Question' && !userIsLoggedIn ? null : (
+      <a
+        className={classNames(
+          classes.link,
+          { 'bg-blue-300': item.slug === active },
+          "hover:text-blue-500",
+          { "border-t": item.slug === 'myquestion' }
+        )}
+
+        data-active={item.label === active || undefined}
+        href={item.link}
+        key={item.label}
+        onClick={(event) => handleLinkClick(event, item)}
+      >
+        <item.icon className={classes.linkIcon} stroke={1.5} />
+        <span className='capitalize'>{item.label}</span>
+      </a>
+    )
   ));
 
   return (
-    <nav className={classNames("flex flex-col justify-between",classes.navbar)}>
+    <main className='flex gap-[3rem]'>
+    <nav className={classNames("flex flex-col justify-between", classes.navbar)}>
       <div className={classes.navbarMain}>
         {links}
       </div>
-
       <div className={classes.footer}>
-        <a href="/" className={classes.link} onClick={(event) => event.preventDefault()}>
-          <IconSwitchHorizontal className={classes.linkIcon} stroke={1.5} />
-          <span>Change account</span>
-        </a>
         <a href="/" className={classes.link} onClick={(event) => event.preventDefault()}>
           <IconLogout className={classes.linkIcon} stroke={1.5} />
           <span>Logout</span>
         </a>
       </div>
     </nav>
+    <div className=''>
+      {children}
+    </div>
+  </main>
   );
 }
+
