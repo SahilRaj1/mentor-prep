@@ -37,7 +37,7 @@ export const createPost = async (req, res) => {
 
     try {
        
-        const { title, content, author, tags } = req.body;
+        const { title, content, tags } = req.body;
 
         const newPost = {};
 
@@ -49,14 +49,11 @@ export const createPost = async (req, res) => {
             newPost.content = content;
         }
 
-        if (author) {
-            newPost.author = author;
-        }
-
         if (tags) {
             newPost.tags = tags;
         }
 
+        post.author = req.user.id;
         post.isMentor = req.user.role === "mentor";
 
         const post = await createOnePost(newPost);

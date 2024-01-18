@@ -47,7 +47,7 @@ export const fetchOneBooking = async (id) => {
 } 
 
 // create booking
-export const createBooking = async (_booking) => {
+export const createNewBooking = async (_booking) => {
     const booking = await Booking.create(_booking);
     return booking;
 }

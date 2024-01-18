@@ -1,4 +1,6 @@
-import { fetchAllBookings, fetchMenteeBookings, fetchMentorBookings, fetchOneBooking, fetchUpcomingMenteeBookings, fetchUpcomingMentorBookings } from "../db/bookingMethods.js";
+import { createNewBooking, fetchAllBookings, fetchMenteeBookings, fetchMentorBookings, fetchOneBooking, fetchUpcomingMenteeBookings, fetchUpcomingMentorBookings } from "../db/bookingMethods.js";
+import { updateOneMentee } from "../db/menteeMethods.js";
+import { fetchOneMentor, updateOneMentor } from "../db/mentorMethods.js";
 
 // ROUTE 1: get all bookings: GET 'api/bookings". [admin]
 export const getAllBookings = async (req, res) => {
@@ -159,6 +161,46 @@ export const getOneBooking = async (req, res) => {
                 bookings,
             },
         })
+
+    } catch (error) {
+       console.log(error.message);
+       res.status(500).send("Internal server error");
+    }
+}
+
+export const createBooking = async (req, res) => {
+    
+    let success = false;
+
+    try {
+
+        const { dateOfSession, mentor_id } = req.body;
+
+        const mentor = fetchOneMentor(mentor_id);
+
+        if (!mentor) {
+            res.status(404).json({success, error: "mentor not found"});
+        }
+
+        const newBooking = {
+            dateOfSession,
+            mentor_id,
+            mentee_id: req.user.id
+        }
+            
+        const booking = await createNewBooking(newBooking);
+
+        mentor = await updateOneMentor({ user_id: mentor_id }, { bookings: [...mentor.bookings, newBooking] });
+        const mentee = await updateOneMentee({ user_id: req.user.id }, { bookings: [...mentee.bookings, newBooking] });
+
+        success = true;
+
+        res.status(201).json({
+            success,
+            data: {
+                booking,
+            },
+        });
 
     } catch (error) {
        console.log(error.message);

@@ -9,7 +9,6 @@ router.get("/", validateToken, getAllPosts);
 router.post("/", [
     body('title', 'title should not be empty').exists().isLength({ min: 3 }),
     body('content', 'content should not be empty').exists().isLength({ min: 3 }),
-    body('author', 'enter a valid author').exists().isMongoId(),
     body('tags', 'enter a valid author').isArray({}),
 ], validateToken, createPost);
 router.put("/:id", validateToken, updatePost);

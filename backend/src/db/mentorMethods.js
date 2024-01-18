@@ -19,8 +19,7 @@ export const fetchOneMentor = async (id) => {
     return mentor ? mentor : null;
 }
 
-export const updateMentorInDB = async (userId, updateData) => {
-    const filter = { _id: userId, role: "mentor" };
+export const updateOneMentor = async (filter, data) => {
     const options = { $set: updateData };
     const updatedMentor = await updateUser(filter, options);
     return updatedMentor;

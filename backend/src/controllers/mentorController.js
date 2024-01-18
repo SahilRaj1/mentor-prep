@@ -1,4 +1,4 @@
-import { fetchAllMentors, updateMentorInDB, fetchOneMentor } from "../db/mentorMethods.js";
+import { fetchAllMentors, updateOneMentor, fetchOneMentor } from "../db/mentorMethods.js";
 
 
 // ROUTE 1: Get all mentors: GET 'api/mentors".
@@ -52,7 +52,7 @@ export const updateMentor = async (req, res) => {
         const updateData = req.body; 
 
         // Update mentor information in the database
-        const updatedMentor = await updateMentorInDB(mentorId, updateData);
+        const updatedMentor = await updateOneMentor(mentorId, updateData);
 
         if (!updatedMentor) {
             res.status(404).json({ success, error: "Mentor not found" });

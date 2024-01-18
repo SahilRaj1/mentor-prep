@@ -4,7 +4,8 @@ import Mentee from "../models/MenteeModel.js";
 export const fetchAllMentees = async (skip, limit, query = {}) => {
     const mentees = await Mentee.find(query)
         .skip(skip)
-        .limit(limit);
+        .limit(limit)
+        .populate('user_id');
     return mentees;
 };
 
@@ -18,9 +19,8 @@ export const fetchOneMentee = async (id) => {
     return mentee ? mentee : null;
 }
 
-export const updateOneMentee = async (userId, updateData) => {
-    const filter = { _id: userId, role: "mentee" };
-    const options = { $set: updateData };
+export const updateOneMentee = async (filter, data) => {
+    const options = { $set: data };
     const updatedMentee = await updateUser(filter, options);
     return updatedMentee;
 };
