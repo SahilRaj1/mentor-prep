@@ -4,7 +4,7 @@ import User from "../models/UserModel.js";
 export const fetchAllUsers = async (skip, limit, query = {}) => {
     const users = await User.find(query)
         .skip(skip)
-        .limit(limit);
+        .limit(limit)
     return users;
 }
 

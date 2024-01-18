@@ -8,6 +8,8 @@ const mentorSchema = new mongoose.Schema({
     yearsOfExperience: { type: Number },
     currentPostTitle: { type: String },
     bookings: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Booking' }],
+    price: { type: Number },
+    pricingModel: { String, enum: ["subscription", "hourly", "fixed"] },
 }, { timestamps: true });
 
 const Mentor = mongoose.model("Mentor", mentorSchema);

@@ -7,6 +7,7 @@ import connectToMongo from './db.js';
 
 import authRouter from './routes/authRouter.js';
 import userRouter from './routes/userRouter.js';
+import bookingRouter from './routes/bookingRouter.js';
 
 dotenv.config();
 
@@ -29,6 +30,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/bookings', bookingRouter);
 app.use('/api/v1/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.listen(PORT, () => {
