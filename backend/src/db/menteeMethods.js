@@ -8,6 +8,10 @@ export const fetchAllMentees = async (skip, limit, query = {}) => {
     return mentees;
 };
 
+export const createNewMentee = async (id) => {
+    const mentee = await Mentee.create({ user_id: id });
+    return mentee;
+}
 
 export const updateOneMentee = async (userId, updateData) => {
     const filter = { _id: userId, role: "mentee" };

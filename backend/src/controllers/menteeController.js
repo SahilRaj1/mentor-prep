@@ -45,7 +45,7 @@ export const updateMentee = async (req, res) => {
 
     try {
         // Check if the user is a mentee and matches the provided id
-        if (req.user.role !== "mentee" || req.user._id != req.params.id) {
+        if (req.user.role !== "mentee" || req.user.id != req.params.id) {
             res.status(401).json({ success, error: "Unauthorized" });
             return;
         }

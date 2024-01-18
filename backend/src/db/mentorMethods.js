@@ -8,6 +8,10 @@ export const fetchAllMentors = async (skip, limit, query = {}) => {
     return mentors;
 };
 
+export const createNewMentor = async (id) => {
+    const mentor = await Mentor.create({ user_id: id });
+    return mentor;
+}
 
 export const updateMentorInDB = async (userId, updateData) => {
     const filter = { _id: userId, role: "mentor" };

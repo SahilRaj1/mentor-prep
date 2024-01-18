@@ -44,7 +44,7 @@ export const getAllMentorBookings = async (req, res) => {
 
     try {
        
-        if (req.user.role != "mentor" || req.user._id != req.params.id) {
+        if (req.user.role != "mentor" || req.user.id != req.params.id) {
             res.status(401).json({success, error: "Unauthorized"});
             return;
         }
@@ -85,7 +85,7 @@ export const getAllMenteeBookings = async (req, res) => {
 
     try {
        
-        if (req.user.role != "mentee" || req.user._id != req.params.id) {
+        if (req.user.role != "mentee" || req.user.id != req.params.id) {
             res.status(401).json({success, error: "Unauthorized"});
             return;
         }
@@ -132,7 +132,7 @@ export const getOneBooking = async (req, res) => {
             return 
         }
        
-        if (req.user._id != req.params.id) {
+        if (req.user.id != req.params.id) {
             res.status(401).json({success, error: "Unauthorized"});
             return;
         }

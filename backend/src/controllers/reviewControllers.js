@@ -40,7 +40,7 @@ export const createReview = async (req, res) => {
             desc,
             rating,
             mentor_id,
-            mentee_id: req.user._id,
+            mentee_id: req.user.id,
         };
 
         const review = await createNewReview(newReview);
@@ -64,7 +64,7 @@ export const deleteReviewByMentee = async (req, res) => {
 
     try {
         const reviewId = req.params.reviewId;
-        const menteeId = req.user._id; 
+        const menteeId = req.user.id; 
 
         // Delete the review by mentee
         const deletedReview = await deleteReview(reviewId, menteeId);

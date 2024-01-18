@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const menteeSchema = new mongoose.Schema({
     user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    preferences: { type: [String], required: true },
+    preferences: { type: [String] },
     occupation: { type: String },
     bookings: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Booking' }],
 }, { timestamps: true });

@@ -43,7 +43,7 @@ export const updateMentor = async (req, res) => {
 
     try {
         // Check if the user is a mentor and matches the provided id
-        if (req.user.role !== "mentor" || req.user._id != req.params.id) {
+        if (req.user.role !== "mentor" || req.user.id != req.params.id) {
             res.status(401).json({ success, error: "Unauthorized" });
             return;
         }

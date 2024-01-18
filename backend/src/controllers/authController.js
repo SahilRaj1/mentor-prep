@@ -3,6 +3,8 @@ import signToken from "../utils/token.js";
 import dotenv from "dotenv";
 import { validationResult } from "express-validator";
 import { fetchUserByEmail, createUser, fetchUserByUsername } from "../db/userMethods.js";
+import { createNewMentee } from "../db/menteeMethods.js";
+import { createNewMentor } from "../db/mentorMethods.js";
 
 dotenv.config();
 
@@ -46,6 +48,14 @@ export const signup = async (req, res) => {
                 name: name,
             },
         });
+
+        if (role == "mentor") {
+            await createNewMentor(user._id);
+        }
+
+        if (role == "mentee") {
+            await createNewMentee(user._id);
+        }
 
         const authtoken = signToken(user._id, user.role, user.username);
 
