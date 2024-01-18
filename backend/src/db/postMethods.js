@@ -5,6 +5,7 @@ export const fetchAllPosts = async (skip, limit, query = {}) => {
     const posts = await Post.find(query)
         .skip(skip)
         .limit(limit)
+        .sort({ createdAt: -1 })
         .populate('author');
     return posts;
 }

@@ -5,6 +5,7 @@ export const fetchAllBookings = async (skip, limit, query = {}) => {
     const bookings = await Booking.find(query)
         .skip(skip)
         .limit(limit)
+        .sort({ createdAt: -1 })
         .populate('mentor_id')
         .populate('mentee_id');
     return bookings;
