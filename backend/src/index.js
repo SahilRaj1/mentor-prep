@@ -12,6 +12,7 @@ import postRouter from './routes/postRouter.js';
 import reviewRouter from './routes/reviewRouter.js';
 import mentorRouter from './routes/mentorRouter.js';
 import menteeRouter from './routes/menteeRouter.js';
+import questionRouter from './routes/questionRouter.js';
 
 dotenv.config();
 
@@ -39,6 +40,7 @@ app.use('/api/v1/posts', postRouter);
 app.use('/api/v1/reviews', reviewRouter);
 app.use('/api/v1/mentors', mentorRouter);
 app.use('/api/v1/mentees', menteeRouter);
+app.use('/api/v1/questions', questionRouter);
 app.use('/api/v1/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.listen(PORT, () => {
