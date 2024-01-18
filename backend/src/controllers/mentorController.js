@@ -1,17 +1,11 @@
-import { fetchAllMentors } from "../db/mentorMethods.js";
-import { updateMentorInDB } from "../db/mentorMethods";
+import { fetchAllMentors, updateMentorInDB } from "../db/mentorMethods.js";
 
 
-// ROUTE 1: Get all mentors: GET 'api/mentors". [admin]
+// ROUTE 1: Get all mentors: GET 'api/mentors".
 export const getAllMentors = async (req, res) => {
     let success = false;
 
     try {
-        // Check if the user is an admin
-        if (req.user.role !== "admin") {
-            res.status(401).json({ success, error: "Unauthorized" });
-            return;
-        }
 
         // Pagination parameters
         const page = parseInt(req.query.page, 10) || 1;

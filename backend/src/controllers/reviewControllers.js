@@ -1,5 +1,4 @@
-import { fetchPaginatedReviewsByMentor } from "../db/reviewMethods";
-import { deleteReviewByMentee } from "../db/reviewMethods";
+import { fetchPaginatedReviewsByMentor, deleteReview, createNewReview } from "../db/reviewMethods.js";
 
 // Get paginated reviews of a mentor
 export const getPaginatedReviewsByMentor = async (req, res) => {
@@ -28,6 +27,38 @@ export const getPaginatedReviewsByMentor = async (req, res) => {
     }
 };
 
+export const createReview = async (req, res) => {
+
+    let success = false; 
+    
+    try {
+       
+        const { title, desc, rating, mentor_id } = req.body;
+
+        const newReview = {
+            title,
+            desc,
+            rating,
+            mentor_id,
+            mentee_id: req.user._id,
+        };
+
+        const review = await createNewReview(newReview);
+        success = true;
+
+        res.status(201).json({
+            success,
+            data: {
+                review,
+            },
+        });
+
+    } catch (error) {
+       console.log(error.message);
+       res.status(500).send("Internal server error");
+    }
+}
+
 export const deleteReviewByMentee = async (req, res) => {
     let success = false;
 
@@ -36,7 +67,7 @@ export const deleteReviewByMentee = async (req, res) => {
         const menteeId = req.user._id; 
 
         // Delete the review by mentee
-        const deletedReview = await deleteReviewByMentee(reviewId, menteeId);
+        const deletedReview = await deleteReview(reviewId, menteeId);
 
         if (!deletedReview) {
             res.status(404).json({ success, error: "Review not found or unauthorized" });

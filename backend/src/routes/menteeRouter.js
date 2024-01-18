@@ -1,8 +1,10 @@
-import { getAllMentees } from "../controllers/menteeController";
+import { getAllMentees, updateMentee } from "../controllers/menteeController.js";
 import { Router } from "express";
-import validateToken from "../middlewares/validateToken";
+import validateToken from "../middlewares/validateToken.js";
 
 const router = Router();
 
-router.get('/mentees', validateToken, getAllMentees);
-router.put("/:id", validateToken, menteeControllers.updateMentee);
+router.get('/', validateToken, getAllMentees);
+router.put("/:id", validateToken, updateMentee);
+
+export default router;

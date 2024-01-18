@@ -1,5 +1,4 @@
-import {  } from "../db/menteeMethods.js";
-import { updateMentee , fetchAllMentees} from "../db/menteeMethods";
+import { updateOneMentee , fetchAllMentees} from "../db/menteeMethods.js";
 
 // ROUTE 1: Get all mentees: GET 'api/mentees". [admin]
 export const getAllMentees = async (req, res) => {
@@ -55,7 +54,7 @@ export const updateMentee = async (req, res) => {
         const updateData = req.body; 
 
         
-        const updatedMentee = await updateMentee(menteeId, updateData);
+        const updatedMentee = await updateOneMentee(menteeId, updateData);
 
         if (!updatedMentee) {
             res.status(404).json({ success, error: "Mentee not found" });

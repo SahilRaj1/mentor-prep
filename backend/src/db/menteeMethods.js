@@ -1,4 +1,4 @@
-import Mentee from "../models/MenteeModel";
+import Mentee from "../models/MenteeModel.js";
 
 // Fetch all mentees
 export const fetchAllMentees = async (skip, limit, query = {}) => {
@@ -9,7 +9,7 @@ export const fetchAllMentees = async (skip, limit, query = {}) => {
 };
 
 
-export const updateMentee = async (userId, updateData) => {
+export const updateOneMentee = async (userId, updateData) => {
     const filter = { _id: userId, role: "mentee" };
     const options = { $set: updateData };
     const updatedMentee = await updateUser(filter, options);

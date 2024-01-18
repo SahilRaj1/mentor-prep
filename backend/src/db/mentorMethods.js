@@ -1,4 +1,4 @@
-import Mentor from "../models/MentorModel";
+import Mentor from "../models/MentorModel.js";
 
 // Fetch all mentors
 export const fetchAllMentors = async (skip, limit, query = {}) => {

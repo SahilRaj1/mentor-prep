@@ -50,7 +50,7 @@ export const signup = async (req, res) => {
         const authtoken = signToken(user._id, user.role, user.username);
 
         success = true;
-        res.status(201).json({success, authtoken});
+        res.status(201).json({success, user, authtoken});
 
     } catch (error) {
 
@@ -90,7 +90,7 @@ export const login = async (req, res) => {
         const authtoken = signToken(user._id, user.role, user.username);
 
         success = true;
-        res.status(200).json({success, authtoken});
+        res.status(200).json({success, user, authtoken});
 
     } catch (error) {
 
