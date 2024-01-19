@@ -11,7 +11,7 @@ router.post("/", validateToken, [
     body("question", "Enter a valid question").exists().isLength({ min: 3 }),
     body("desc", "Enter a valid question").exists().isLength({ min: 10 }),
 ], createQuestion);
-router.put("/:id/answer", answerQuestion);
-router.put("/:id/done", markSolved);
+router.put("/:id/answer", validateToken, answerQuestion);
+router.put("/:id/done", validateToken, markSolved);
 
 export default router;
