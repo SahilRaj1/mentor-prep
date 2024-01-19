@@ -1,17 +1,42 @@
-"use client"
-import React, { useState } from 'react';
-import { TextInput, Textarea, SimpleGrid, Group, Title, Button } from '@mantine/core';
+"use client";
+import React, { useEffect, useState } from 'react';
+import { TextInput, Textarea, Group, Title, Button, rem } from '@mantine/core';
+import axios from 'axios';
+import QuestionCard from '../QuestionCard';
+import { IconSend } from '@tabler/icons-react';
 
 interface FormValues {
-  title: string;
-  description: string;
+  question: string;
+  desc: string;
 }
 
 export function GetInTouchSimple() {
+  const authtoken = localStorage.getItem('authtoken');
+  const [questions, setQuestions] = useState([]);
   const [formValues, setFormValues] = useState<FormValues>({
-    title: '',
-    description: '',
+    question: '',
+    desc: '',
   });
+  const userId = localStorage.getItem("userId")
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`https://mentor-prep-rest-api.onrender.com/api/v1/questions/me`, {
+        headers: {
+          'auth-token': authtoken,
+          'Content-Type': 'application/json',
+        }
+      });
+      console.log(response.data.data.questions);
+      setQuestions(response.data.data.questions);
+    } catch (error) {
+      console.error('Error fetching Card data:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -28,15 +53,15 @@ export function GetInTouchSimple() {
     }
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     // Custom validation logic
     const newErrors: Record<string, string> = {};
-    if (formValues.title.trim().length === 0) {
-      newErrors.title = 'This field is required';
+    if (formValues.question.trim().length === 0) {
+      newErrors.question = 'This field is required';
     }
-    if (formValues.description.trim().length === 0) {
+    if (formValues.desc.trim().length === 0) {
       newErrors.description = 'This field is required';
     }
 
@@ -46,32 +71,50 @@ export function GetInTouchSimple() {
     }
 
     // Handle form submission logic here
-    console.log('Title:', formValues.title);
-    console.log('Description:', formValues.description);
+    try {
+      await axios.post(
+        'https://mentor-prep-rest-api.onrender.com/api/v1/questions',
+        {
+          question: formValues.question,
+          desc: formValues.desc,
+          // Assuming you want to send these values to the server
+        },
+        {
+          headers: {
+            'auth-token': authtoken,
+          },
+        }
+      );
+      console.log(formValues)
+      // Reset form values after successful submission
+      setFormValues({ question: '', desc: '' });
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
   };
 
   return (
-    <div className="flex justify-center">
-    <form onSubmit={handleSubmit} className='w-[45em]'>
-      <Title
-        order={2}
-        size="h1"
-        style={{ fontFamily: 'Greycliff CF, var(--mantine-font-family)' }}
-        fw={900}
-        ta="center"
-      >
-        Get in touch
-      </Title>
-       <TextInput
+    <div className="flex flex-col gap-8 justify-center">
+      <form onSubmit={handleSubmit} className='w-[800px]'>
+        <Title
+          order={2}
+          size="h1"
+          style={{ fontFamily: 'Greycliff CF, var(--mantine-font-family)' }}
+          fw={900}
+          ta="center"
+        >
+          Get in touch
+        </Title>
+        <TextInput
           label="Title"
           placeholder="Title"
           mt="md"
-          name="title"
+          name="question"
           variant="filled"
-          value={formValues.title}
-          onChange={(event) => handleChange('title', event.currentTarget.value)}
-          onBlur={(event) => handleBlur('title', event.currentTarget.value)}
-          error={errors.title}
+          value={formValues.question}
+          onChange={(event) => handleChange('question', event.currentTarget.value)}
+          onBlur={(event) => handleBlur('question', event.currentTarget.value)}
+          error={errors.question}
         />
         <Textarea
           mt="md"
@@ -80,20 +123,26 @@ export function GetInTouchSimple() {
           maxRows={10}
           minRows={5}
           autosize
-          name="descritption"
+          name="desc"
           variant="filled"
-          value={formValues.description}
-          onChange={(event) => handleChange('description', event.currentTarget.value)}
-          onBlur={(event) => handleBlur('description', event.currentTarget.value)}
+          value={formValues.desc}
+          onChange={(event) => handleChange('desc', event.currentTarget.value)}
+          onBlur={(event) => handleBlur('desc', event.currentTarget.value)}
           error={errors.description}
         />
 
-      <Group justify="center" mt="xl">
-        <Button type="submit" size="md">
-          Send message
-        </Button>
-      </Group>
-    </form>
+        <Group justify="center" mt="xl">
+          <Button type="submit" size="md">
+            <IconSend style={{ width: rem(20), height: rem(20), marginRight:"12px" }} stroke={1.5} />
+            Send Question
+          </Button>
+        </Group>
+      </form>
+      {questions.map((question, id) => (
+        <div key={id}>
+          <QuestionCard question={question} getData={fetchData}/>
+        </div>
+      ))}
     </div>
   );
 }

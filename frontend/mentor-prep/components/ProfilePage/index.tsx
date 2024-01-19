@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import axios, { AxiosHeaders } from 'axios';
 import jwt from 'jsonwebtoken'; // Import jwt library
+import { Button, TextInput } from '@mantine/core';
 
 // Define the UpdateProfile component
 const UpdateProfile: React.FC = () => {
@@ -23,7 +24,6 @@ const UpdateProfile: React.FC = () => {
   const authtoken = localStorage.getItem("authtoken")
   // console.log(userId);
   
-
   // Fetch existing user data
   useEffect(() => {
     const fetchData = async () => {
@@ -61,12 +61,8 @@ const UpdateProfile: React.FC = () => {
   
 
   // Handle form input changes
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+  const onChange = (event:any) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
   // Handle image input changes
@@ -74,15 +70,6 @@ const UpdateProfile: React.FC = () => {
     if (e.target.files && e.target.files.length > 0) {
       setAvatarFile(e.target.files[0]);
     }
-  };
-
-  // Handle social media input changes
-  const handleSocialMediaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
   };
 
   // Handle form submission
@@ -94,9 +81,9 @@ const UpdateProfile: React.FC = () => {
       const formDataWithImage = new FormData();
       formDataWithImage.append('name', formData.name);
       formDataWithImage.append('bio', formData.bio);
-      formDataWithImage.append('contact.phone', formData.phone);
-      formDataWithImage.append('social_media.twitter', formData.twitter);
-      formDataWithImage.append('social_media.linkedin', formData.linkedin);
+      formDataWithImage.append('phone', formData.phone);
+      formDataWithImage.append('twitter', formData.twitter);
+      formDataWithImage.append('linkedin', formData.linkedin);
       if (avatarFile) {
         formDataWithImage.append('avatar', avatarFile);
       }
@@ -106,7 +93,7 @@ const UpdateProfile: React.FC = () => {
       const response = await axios.put(`https://mentor-prep-rest-api.onrender.com/api/v1/users/${userId}`, formDataWithImage, {
         headers: {
             "auth-token": authtoken,
-            "Content-Type": "image/jpg"
+            "Content-Type": "multipart/form-data"
         }});
 
       console.log('Profile updated successfully:', response.data);
@@ -124,16 +111,21 @@ const UpdateProfile: React.FC = () => {
           <label htmlFor="name" className="block text-sm font-medium text-gray-600">
             Name
           </label>
-          <input
+          {/* <input
           disabled
             type="text"
             id="name"
             name="name"
             value={formData.name}
-            onChange={handleInputChange}
             className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-            required
-          />
+          /> */}
+          <TextInput
+            disabled
+            id='name'
+            name='name'
+            value={formData.name}
+            size='sm'
+            />
         </div>
 
         {/* Bio */}
@@ -145,7 +137,7 @@ const UpdateProfile: React.FC = () => {
             id="bio"
             name="bio"
             value={formData.bio}
-            onChange={handleInputChange}
+            onChange={onChange}
             className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
           />
         </div>
@@ -155,12 +147,11 @@ const UpdateProfile: React.FC = () => {
           <label htmlFor="phone" className="block text-sm font-medium text-gray-600">
             Contact Phone
           </label>
-          <input
-            id="phone"
-            name="contact.phone"
-            value={formData.phone}
-            onChange={handleInputChange}
-            className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          <TextInput
+          id='phone'
+          name='phone'
+          value={formData.phone}
+          onChange={onChange}
           />
         </div>
 
@@ -186,9 +177,9 @@ const UpdateProfile: React.FC = () => {
   <input
     type="text"
     id="twitter"
-    name="social_media.twitter"
+    name="twitter"
     value={formData.twitter}
-    onChange={handleSocialMediaChange}
+    onChange={onChange}
     className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
   />
 </div>
@@ -201,17 +192,22 @@ const UpdateProfile: React.FC = () => {
   <input
     type="text"
     id="linkedin"
-    name="social_media.linkedin"
+    name="linkedin"
     value={formData.linkedin}
-    onChange={handleSocialMediaChange}
+    onChange={onChange}
     className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
   />
 </div>
 
         {/* Add a submit button */}
-        <button type="submit" className="bg-blue-500 text-white p-2 rounded-md">
+        <div className='text-center'>
+          <Button type='submit' variant='primary' className='self-center'>
+            Update Profile
+          </Button>
+        </div>
+        {/* <button type="submit" className="bg-blue-500 text-white p-2 rounded-md">
           Update Profile
-        </button>
+        </button> */}
       </form>
     </div>
   );

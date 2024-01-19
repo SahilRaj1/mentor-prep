@@ -11,13 +11,11 @@ export function HeroBullets() {
       <div className={classes.inner}>
         <div className={classes.content}>
           <Title className={classes.title}>
-            A <span className={classes.highlight}>modern</span> React <br /> components library
+            Welcome to Mentor Prep, a platform for All
           </Title>
           <Text c="dimmed" mt="md">
-            Build fully functional accessible web applications faster than ever – Mantine includes
-            more than 120 customizable components and hooks to cover you in any situation
+            Mentor Prep acknowledges certain challenges and limitations in the current system that hinder its effectiveness
           </Text>
-
           <List
             mt={30}
             spacing="sm"
@@ -29,27 +27,15 @@ export function HeroBullets() {
             }
           >
             <List.Item>
-              <b>TypeScript based</b> – build type safe applications, all components and hooks
-              export types
+              <b>Community Enhancement</b> – Elevate your Mentor Prep experience by actively participating in our enriched community
             </List.Item>
             <List.Item>
-              <b>Free and open source</b> – all packages have MIT license, you can use Mantine in
-              any project
+              <b>Enhanced Mentor Search</b> – Unlock the potential of Mentor Prep with Us
             </List.Item>
             <List.Item>
-              <b>No annoying focus ring</b> – focus ring will appear only when user navigates with
-              keyboard
+              <b>Right Place for Learning</b> – Navigate through your learning journey seamlessly at Mentor Prep
             </List.Item>
           </List>
-
-          <Group mt={30}>
-            <Button radius="xl" size="md" className={classes.control}>
-              Get started
-            </Button>
-            <Button variant="default" radius="xl" size="md" className={classes.control}>
-              Source code
-            </Button>
-          </Group>
         </div>
         <Image src={image.src} className={classes.image} alt='image' width={376} height={356}/>
       </div>

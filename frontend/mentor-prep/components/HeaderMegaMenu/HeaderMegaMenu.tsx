@@ -15,6 +15,7 @@ import {
 import classNames from 'classnames';
 import Link from 'next/link';
 import { UserButton } from '../UserButton/UserButton';
+import { IconLogout } from '@tabler/icons-react';
   
   export function HeaderMegaMenu() {
     const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
@@ -23,12 +24,13 @@ import { UserButton } from '../UserButton/UserButton';
       <Box className='py-5 border border-b-[#EAEAEA]'>
         <header className={classes.header}>
           <Group justify="space-between" h="100%">
-            <MantineLogo size={30} />
+            <Link href={"/"} shallow={true}>
+            <div className='font-bold text-xl cursor-pointer'>Mentor Prep</div></Link>
             <Group h="100%" gap={0} visibleFrom="sm">
               <a href="/#mentors" className={classNames("hover:text-blue-500 text-xl",classes.link)}>
                 Find a Mentor
               </a>
-              <a href="/#" className={classNames("hover:text-blue-500 text-xl",classes.link)}>
+              <a href="/signup" className={classNames("hover:text-blue-500 text-xl",classes.link)}>
                 Become a Mentor
               </a>
               <a href="/#" className={classNames("hover:text-blue-500 text-xl",classes.link)}>

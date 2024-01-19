@@ -17,7 +17,6 @@ const data = [
   { link: '/community', label: 'Discussion', slug:'discussion' , icon: IconHelpOctagon },
   { link: '/community/tags', label: 'Tags', slug:'tags' ,  icon: IconTag },
   { link: '/community/myquestion', label: 'My Question', slug:'myquestion' , icon: IconPencil },
-  { link: '/community/solution', label: 'Solution', slug:'solution' , icon: IconListCheck },
 ];
 
 export default function ChooseQuestionType({
@@ -39,7 +38,7 @@ export default function ChooseQuestionType({
     if (item.label === 'My Question' && !userIsLoggedIn) {
       // Do nothing or show a message indicating the user needs to be logged in
     } else {
-      setActive(item.label);
+      setActive(item.slug);
       // Navigate to the specified link using Next.js router
       router.push(item.link);
     }
@@ -71,12 +70,6 @@ export default function ChooseQuestionType({
     <nav className={classNames("flex flex-col justify-between", classes.navbar)}>
       <div className={classes.navbarMain}>
         {links}
-      </div>
-      <div className={classes.footer}>
-        <a href="/" className={classes.link} onClick={(event) => event.preventDefault()}>
-          <IconLogout className={classes.linkIcon} stroke={1.5} />
-          <span>Logout</span>
-        </a>
       </div>
     </nav>
     <div className=''>

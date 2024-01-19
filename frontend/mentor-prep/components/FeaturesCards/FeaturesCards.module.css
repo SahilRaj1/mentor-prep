@@ -28,6 +28,7 @@
   }
   
   .cardTitle {
+    text-align: center;
   }
   
   .cardTitle::after {

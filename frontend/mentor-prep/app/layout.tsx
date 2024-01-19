@@ -5,6 +5,7 @@ import { theme } from "../theme";
 import './index.css'
 import { HeaderMegaMenu } from "../components/HeaderMegaMenu/HeaderMegaMenu";
 import '@mantine/carousel/styles.css';
+import { FooterSocial } from "../components/FooterSocial/FooterSocial";
 
 export const metadata = {
   title: "Mentor Prep",
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: { children: any }) {
         <MantineProvider theme={theme}>
           <HeaderMegaMenu />
           {children}
+          <FooterSocial/>
           </MantineProvider>
       </body>
     </html>

@@ -4,43 +4,44 @@ import { useMediaQuery } from '@mantine/hooks';
 import { Button, Paper, Title, useMantineTheme, Text } from '@mantine/core';
 import classes from './CardsCarousel.module.css'
 import classNames from 'classnames';
+import { useRouter } from 'next/navigation';
 
 const data = [
   {
     image:
-      'https://images.unsplash.com/photo-1508193638397-1c4234db14d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80',
-    title: 'Best forests to visit in North America',
-    category: 'nature',
+      'https://images.unsplash.com/photo-1668342482782-582a821eaa59?q=80&w=1888&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    title: 'Satya Nadella',
+    category: 'MICROSOFT',
   },
   {
     image:
-      'https://images.unsplash.com/photo-1559494007-9f5847c49d94?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80',
-    title: 'Hawaii beaches review: better than you think',
-    category: 'beach',
+      'https://images.unsplash.com/photo-1672825464619-79acee9f7e29?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDEwfHRvd0paRnNrcEdnfHxlbnwwfHx8fHw%3D',
+    title: 'Jeff Bezos',
+    category: 'AMAZON',
   },
   {
     image:
-      'https://images.unsplash.com/photo-1608481337062-4093bf3ed404?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80',
-    title: 'Mountains at night: 12 best locations to enjoy the view',
-    category: 'nature',
+      'https://images.unsplash.com/photo-1692839929461-b3b30e36ef70?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDEzfHRvd0paRnNrcEdnfHxlbnwwfHx8fHw%3D',
+    title: 'Elon Musk',
+    category: 'TESLA',
   },
   {
     image:
-      'https://images.unsplash.com/photo-1507272931001-fc06c17e4f43?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80',
-    title: 'Aurora in Norway: when to visit for best experience',
-    category: 'nature',
+      'https://images.unsplash.com/photo-1704570249452-c45247dd2b6e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDM3fHRvd0paRnNrcEdnfHxlbnwwfHx8fHw%3D',
+    title: 'Ratan Tata',
+    category: 'TATA GROUP',
   },
   {
     image:
-      'https://images.unsplash.com/photo-1510798831971-661eb04b3739?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80',
-    title: 'Best places to visit this winter',
-    category: 'tourism',
+      'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cHJvZmVzc2lvbmFsfGVufDB8fDB8fHww',
+    title: 'Mukesh Ambani',
+    category: 'RELIANCE INDUSTRIES',
   },
   {
     image:
-      'https://images.unsplash.com/photo-1582721478779-0ae163c05a60?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80',
-    title: 'Active volcanos reviews: travel at your own risk',
-    category: 'nature',
+      'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8cHJvZmVzc2lvbmFsfGVufDB8fDB8fHww',
+    title: 'Gautam Adani',
+    category: 'ADANI & CO.',
   },
 ];
 
@@ -51,6 +52,10 @@ interface CardProps {
 }
 
 function Card({ image, title, category }: CardProps) {
+  const router = useRouter();
+  const handleMentor = () => {
+    router.push(`/mentor/123`)
+  }
   return (
     <Paper
   shadow="md"
@@ -63,9 +68,9 @@ function Card({ image, title, category }: CardProps) {
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   }}
-  className={classNames("", classes.card)}
+  className={classNames("text-center", classes.card)}
 >
-  <div>
+  <div className='self-center'>
     <Text className={classes.category} size="xs">
       {category}
     </Text>
@@ -73,8 +78,8 @@ function Card({ image, title, category }: CardProps) {
       {title}
     </Title>
   </div>
-  <Button variant="white" color="dark" className='mt-4'>
-    Read article
+  <Button variant="white" color="dark" className='mt-4 self-center' onClick={handleMentor}>
+    Know More
   </Button>
 </Paper>
 
@@ -91,6 +96,17 @@ export default function CardsCarousel() {
   ));
 
   return (
+    <>
+    <Title
+        order={2}
+        size="h1"
+        style={{ fontFamily: 'Greycliff CF, var(--mantine-font-family)', paddingBottom: 'calc(var(--mantine-spacing-xl) * 2)' }}
+        fw={900}
+        ta="center"
+        id='mentors'
+      >
+        Meet Our Mentors
+      </Title>
     <Carousel
       withIndicators
       slideSize={{ base: '100%', sm: '50%', md: '33.333333%' }}
@@ -99,9 +115,9 @@ export default function CardsCarousel() {
       align="start"
       className='px-10 mx-10 lg:px-20 lg:mx-32'
       slidesToScroll={mobile ? 1 : 2}
-      id='mentors'
     >
       {slides}
     </Carousel>
+    </>
   );
 }

@@ -17,10 +17,9 @@ export function UserButton() {
   const handleConfirmLogout = () => {
     // Remove authToken from LocalStorage
     localStorage.removeItem('authtoken');
-
     // Redirect to the home page
     router.refresh();
-
+    router.push("/");
     // Close the modal
     setModalOpen(false);
   };
